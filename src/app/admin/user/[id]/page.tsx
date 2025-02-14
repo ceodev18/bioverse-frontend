@@ -22,7 +22,7 @@ export default function UserAnswersPage() {
         if (!res.ok) throw new Error("Failed to fetch answers");
         const data = await res.json();
         setAnswers(data);
-      } catch (err) {
+      } catch {
         setError("Error loading answers. Please try again.");
       } finally {
         setLoading(false);

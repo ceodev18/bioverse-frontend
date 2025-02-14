@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 
 // 🟢 Generic GET Request Function
 export async function getData<T>(endpoint: string): Promise<T> {
@@ -8,7 +8,7 @@ export async function getData<T>(endpoint: string): Promise<T> {
 }
 
 // 🟢 Generic POST Request Function
-export async function postData<T>(endpoint: string, body: any): Promise<T> {
+export async function postData<T, B>(endpoint: string, body: B): Promise<T> {
   const res = await fetch(`${API_URL}/${endpoint}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

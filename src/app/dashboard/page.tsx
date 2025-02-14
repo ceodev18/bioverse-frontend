@@ -2,9 +2,13 @@
 import { useEffect, useState } from "react";
 import { getCurrentUser, logout } from "@/services/authService";
 import { useRouter } from "next/navigation";
+interface User {
+  username: string;
+  // Add other properties as needed
+}
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -15,7 +19,7 @@ export default function DashboardPage() {
     } else {
       setUser(loggedInUser);
     }
-  }, []);
+  }, [router]);
 
   return (
     <div>

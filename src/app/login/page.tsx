@@ -21,8 +21,9 @@ export default function LoginPage() {
       } else {
         router.push("/questionnaires");
       }
-    } catch (err: any) {
-      setError(err.message || "Error logging in");
+    } catch (err) {
+      const errorMessage = (err as Error).message || "Error logging in";
+      setError(errorMessage);
     }
   };
 

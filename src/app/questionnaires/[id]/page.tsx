@@ -28,7 +28,7 @@ export default function QuestionnairePage() {
         router.push("/login");
         return;
       }
-  
+
       try {
         // Check if user already answered
         const completed = await getData<boolean>(`questionnaires/${id}/user/${user.id}/completed`);
@@ -37,20 +37,20 @@ export default function QuestionnairePage() {
           router.push("/questionnaires"); // Redirect if already completed
           return;
         }
-  
+
         // Load questions
         const fetchedQuestions = await getData<Question[]>(`questionnaires/${id}/questions`);
         setQuestions(fetchedQuestions);
-      } catch {
+      } catch (err) {
+        console.error(err); // Log the error
         setError("Error loading data.");
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, [id]);
-  
+  }, [id, router]); // Add 'router' to the dependency array
 
   const handleInputChange = (questionId: number, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value.trimStart() })); // Remove leading whitespace
@@ -102,7 +102,8 @@ export default function QuestionnairePage() {
         answers,
       });
       router.push("/questionnaires");
-    } catch {
+    } catch (err) {
+      console.error(err); // Log the error
       setError("Error submitting answers. Please try again.");
     }
   };
