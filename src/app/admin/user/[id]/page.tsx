@@ -19,9 +19,7 @@ export default function UserAnswersPage() {
   useEffect(() => {
     const fetchAnswers = async () => {
       try {
-        const res = await getData<any>(`admin/users/${id}`);
-        if (!res.ok) throw new Error("Failed to fetch answers");
-        const data = await res.json();
+        const data = await getData<Answer[]>(`users/${id}`);
         setAnswers(data);
       } catch {
         setError("Error loading answers. Please try again.");
@@ -29,6 +27,7 @@ export default function UserAnswersPage() {
         setLoading(false);
       }
     };
+    
 
     fetchAnswers();
   }, [id]);
