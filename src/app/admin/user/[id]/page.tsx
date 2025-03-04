@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { getData } from "@/services/api";
 
 interface Answer {
   question: string;
@@ -18,7 +19,7 @@ export default function UserAnswersPage() {
   useEffect(() => {
     const fetchAnswers = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/admin/users/${id}`);
+        const res = await getData<any>(`admin/users/${id}`);
         if (!res.ok) throw new Error("Failed to fetch answers");
         const data = await res.json();
         setAnswers(data);

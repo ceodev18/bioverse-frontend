@@ -24,7 +24,6 @@ export default function AdminPanel() {
 
   useEffect(() => {
     getData<UserAnswer[]>("questionnaires/users-with-answers").then((data) => {
-      console.log("Fetched Data:", data); // Debugging
       setUsers(data);
     });
   }, []);
@@ -49,19 +48,27 @@ export default function AdminPanel() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr
-              key={index}
-              className="border cursor-pointer hover:bg-gray-200"
-              onClick={() => loadAnswers(user)}
-            >
-              <td className="p-2">{user.username ? user.username : <span>&mdash;</span>}</td>
-              <td className="p-2 text-center">
-                {user.questionnaireid !== undefined ? user.questionnaireid : <span>&mdash;</span>}
+          {users.length === 0 ? (
+            <tr>
+              <td colSpan={3} className="text-center p-4 text-gray-500">
+                No users have completed questionnaires yet.
               </td>
-              <td className="p-2">{user.questionnairetitle || <span>&mdash;</span>}</td>
             </tr>
-          ))}
+          ) : (
+            users.map((user, index) => (
+              <tr
+                key={index}
+                className="border cursor-pointer hover:bg-gray-200"
+                onClick={() => loadAnswers(user)}
+              >
+                <td className="p-2 text-center">{user.username ? user.username : <span>&mdash;</span>}</td>
+                <td className="p-2 text-center">
+                  {user.questionnaireid !== undefined ? user.questionnaireid : <span>&mdash;</span>}
+                </td>
+                <td className="p-2 text-center">{user.questionnairetitle || <span>&mdash;</span>}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 

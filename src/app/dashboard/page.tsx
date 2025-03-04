@@ -4,7 +4,6 @@ import { getCurrentUser, logout } from "@/services/authService";
 import { useRouter } from "next/navigation";
 interface User {
   username: string;
-  // Add other properties as needed
 }
 
 export default function DashboardPage() {
@@ -15,7 +14,7 @@ export default function DashboardPage() {
     const loggedInUser = getCurrentUser();
     
     if (!loggedInUser) {
-      router.push("/login"); // Si no está autenticado, lo redirige
+      router.push("/login");
     } else {
       setUser(loggedInUser);
     }
